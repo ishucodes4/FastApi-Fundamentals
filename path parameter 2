@@ -1,0 +1,29 @@
+
+from fastapi import FastAPI,Path #importing path of fastapi :)
+app=FastAPI()  
+
+
+ 
+student={
+    1:{
+    "name":"john",
+    "age":17,
+    "class":"year 12"
+    }
+}
+
+
+
+@app.get("/") 
+def index():
+    return {"name":"first data"}
+
+
+
+@app.get("/get-student/{student_id}") 
+def get_student(student_id:int=Path(description="The ID of the student you want to know",gt=0,lt=3)):  #Description is added as well using path.
+    return student[student_id]
+
+#other attributes of path are gt,lt,ge,le->greater than less than
+
+#basically path is used to define attributes of the parameters.ex->int here :)
