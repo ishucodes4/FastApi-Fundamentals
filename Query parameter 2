@@ -1,0 +1,38 @@
+
+'''query parameters->used to pass value in the URL
+google.com/results?search=Python // search=Python is Query Parameter here :)
+'''
+
+from fastapi import FastAPI,Path 
+from typing import Optional  #importing optional :)
+app=FastAPI()  
+
+
+ 
+student={
+    1:{
+    "name":"john",
+    "age":17,
+    "class":"year 12"
+    }
+}
+
+
+
+@app.get("/") 
+def index():
+    return {"name":"first data"}
+
+
+#path endpoint
+@app.get("/get-student/{student_id}") 
+def get_student(student_id:int=Path(description="The ID of the student you want to know",gt=0,lt=3)):  
+    return student[student_id]
+
+#query endpoint
+@app.get("/get-by-name") 
+def get_student(*,name:Optional[str]=None,test:int): #student k naam se uski ID ka milna ke function. None is default input.
+    for student_id in student:                       #putting * is a good practice and always solves problem
+        if(student[student_id]["name"]==name):
+            return student[student_id]
+    return {"data":"Not Found"}
