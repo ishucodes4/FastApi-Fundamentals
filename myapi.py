@@ -1,24 +1,38 @@
-#import fastapi  #installing fastapi and running in my command by using python myapi.py
-from fastapi import FastAPI  #importing fastapi like an object.FastAPI is an object here
-app=FastAPI()  #creating instance of the object here.
+
+from fastapi import FastAPI  
+app=FastAPI()  
 
 
- #creating end point of the API(communication channel)-> Basically URL
-#example->amazon.com/create-user ->create user is endpoint.beacuse it tells what resource now you want to interact with
+ 
+student={
+    1:{
+    "name":"john",
+    "age":17,
+    "class":"year 12"
+    }
+}
 
-'''there are different types of endpoints:
-GET-get an information
-POST-create new object in the database
-PUT-update something in particular object
-DELETE-erase
-'''
 
-@app.get("/") #get->for getting information and /->because we are talking about homepage.
+
+@app.get("/") 
 def index():
     return {"name":"first data"}
 
-#now for running itna part->command->inside directory->uvicorn myapi:app --reload ->paste the URL
-#http://127.0.0.1:8000/docs ->opens swagger documentation->test api(no postman needed)->try out->execute
+#understanding pass parameter.
+
+'''google.com/get-student ->this shall give me data of all the student but i want specific student.
+therefor-> google.com/get-student/1 '''
+
+@app.get("/get-student/{student_id}") #declaring new endpoint
+def get_student(student_id:int):
+    return student[student_id]
+#open swagger doc-> check krke dekho get students ko.
+#also we can go to http://127.0.0.1:8000/get-student/1
+
+
+
+
+
 
 
 
