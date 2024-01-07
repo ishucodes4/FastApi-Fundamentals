@@ -1,0 +1,35 @@
+#combining path and query parameters.
+
+from fastapi import FastAPI,Path 
+from typing import Optional  #importing optional :)
+app=FastAPI()  
+
+
+ 
+student={
+    1:{
+    "name":"john",
+    "age":17,
+    "class":"year 12"
+    }
+}
+
+
+
+@app.get("/") 
+def index():
+    return {"name":"first data"}
+
+
+
+@app.get("/get-student/{student_id}") 
+def get_student(student_id:int=Path(description="The ID of the student you want to know",gt=0,lt=3)):  
+    return student[student_id]
+
+
+@app.get("/get-by-name/{student_id}") #declared path parameter here as well.
+def get_student(*,student_id:int,name:Optional[str]=None,test:int):  #that's why i have to mention it here as well.
+    for student_id in student:                       
+        if(student[student_id]["name"]==name):
+            return student[student_id]
+    return {"data":"Not Found"}
