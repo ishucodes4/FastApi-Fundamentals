@@ -1,0 +1,7 @@
+commands:
+pip install fastapi
+pip install uvicorn (for creating webserver of created api)
+
+create a python file in VS Code inside FastApi Folder named myapi.py.
+copy it address and paste in the command prompt to make sure that we are inside that directory :)
+
